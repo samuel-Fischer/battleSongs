@@ -91,6 +91,8 @@ def list_songs():
         defeats = song["Defeats"]
         if len(song["LosingSongs"]) > 0:
             losing_songs = ", ".join(song["LosingSongs"])
+        else:
+            losing_songs = ""
 
         print(f"{i+1:02d}. | {title:<29} | {album:<20} | {victories:^3} | {defeats:^3} | {losing_songs}")
     print("="*qty)
@@ -110,9 +112,6 @@ def add_song():
     }
     songs_data.append(song_info)
 
-    with open("songs.csv", "a") as file:
-        file.write(f"\n{title};{album};{0};{0};")
-
     print(f"🎉 Song '{title}' from album '{album}' added successfully!")
 
 
@@ -130,7 +129,6 @@ def update_song(song, album, is_winner):
                 s["Victories"] += 1
             else:
                 s["Defeats"] += 1
-            return s
 
 def find_losing_songs(song_title, album_title):
     losing_songs_set = set()
@@ -198,9 +196,6 @@ def add_battle():
     }
     battles_data.append(battle_info)
 
-    with open("battles.csv", "a") as file:
-        file.write(f"\n{battle_info['N']};{song1};{song2};{album1};{album2};{votes1};{votes2};{date}")
-
     update_song(song1, album1, int(votes1) > int(votes2))
     update_song(song2, album2, int(votes2) > int(votes1))
     update_all_losing_songs()
@@ -246,30 +241,24 @@ def list_battles():
 
     print("="*qty)
 
-
 def suggest_next_battle():
     eligible_songs = []
     
-    # Criar uma lista de músicas que não tenham precedentes
     for song1 in songs_data:
         for song2 in songs_data:
             if song1 != song2:
                 song1_title = song1["Title"].lower()
-                song1_album = song1["Album"].lower()
                 song2_title = song2["Title"].lower()
-                song2_album = song2["Album"].lower()
                 
-                # Verificar se song2 está na lista de LosingSongs de song1 ou vice-versa
                 if song2_title not in (losing_song.lower() for losing_song in song1["LosingSongs"]) and song1_title not in (losing_song.lower() for losing_song in song2["LosingSongs"]):
                     eligible_songs.append((song1, song2))
     
-    # Se não houver músicas elegíveis, retornar None
     if not eligible_songs:
-        return None
+        print(f"\nNo eligible songs found for the next battle.")
     
-    # Selecionar aleatoriamente um par de músicas elegíveis
     next_battle = random.choice(eligible_songs)
-    return next_battle
+    song1, song2 = next_battle
+    print(f"\nSuggested battle: '{song1['Title']}' from '{song1['Album']}' vs '{song2['Title']}' from '{song2['Album']}'")
 
 
 # Main program
@@ -295,12 +284,7 @@ def main_menu():
         elif option == "4":
             list_battles()
         elif option == "5":
-            suggested_battle = suggest_next_battle()
-            if suggested_battle:
-                song1, song2 = suggested_battle
-                print(f"Suggested battle: '{song1['Title']}' from '{song1['Album']}' vs '{song2['Title']}' from '{song2['Album']}'")
-            else:
-                print("No eligible songs found for the next battle.")
+            suggest_next_battle()
         elif option == "0":
             update_file()
             print("Program finished!")
