@@ -75,13 +75,13 @@ def Headline(text, qty, underlined="="):
 
 # Songs functions
 def list_songs():
-    qty = 85
+    qty = 92
     Headline("List of Songs", qty)
     if len(songs_data) == 0:
         print("No songs found!")
         return
     
-    print(f"{'Nº':<3} | {'Song':<29} | {'Album':<20} | {'V':^3} | {'D':^3} | {'Losing Songs'}")
+    print(f"{'Nº':<3} | {'Song':<29} | {'Album':<20} | {'V':^3} | {'D':^3} | {'qty':^4} | {'Losing Songs'}")
     print("="*qty)
 
     for i, song in enumerate(songs_data):
@@ -91,10 +91,8 @@ def list_songs():
         defeats = song["Defeats"]
         if len(song["LosingSongs"]) > 0:
             losing_songs = ", ".join(song["LosingSongs"])
-        else:
-            losing_songs = ""
 
-        print(f"{i+1:02d}. | {title:<29} | {album:<20} | {victories:^3} | {defeats:^3} | {losing_songs}")
+        print(f"{i+1:02d}. | {title:<29} | {album:<20} | {victories:^3} | {defeats:^3} | {len(song['LosingSongs']):^4} | {losing_songs}")
     print("="*qty)
 
 def add_song():
@@ -122,13 +120,27 @@ def find_song(title, album):
             return song
     print(f"Song '{title}' from album '{album}' not found!")
 
-def update_song(song, album, is_winner):
+def update_song(song, album):
+    victories = 0
+    defeats = 0
+    
+    for battle in battles_data:
+        if battle["Song1"].lower() == song.lower() and battle["Album1"].lower() == album.lower():
+            if int(battle["Votes1"]) > int(battle["Votes2"]):
+                victories += 1
+            else:
+                defeats += 1
+        elif battle["Song2"].lower() == song.lower() and battle["Album2"].lower() == album.lower():
+            if int(battle["Votes2"]) > int(battle["Votes1"]):
+                victories += 1
+            else:
+                defeats += 1
+
     for s in songs_data:
         if s["Title"].lower() == song.lower() and s["Album"].lower() == album.lower():
-            if is_winner:
-                s["Victories"] += 1
-            else:
-                s["Defeats"] += 1
+            s["Victories"] = victories
+            s["Defeats"] = defeats
+            break
 
 def find_losing_songs(song_title, album_title):
     losing_songs_set = set()
@@ -196,8 +208,8 @@ def add_battle():
     }
     battles_data.append(battle_info)
 
-    update_song(song1, album1, int(votes1) > int(votes2))
-    update_song(song2, album2, int(votes2) > int(votes1))
+    update_song(song1, album1)
+    update_song(song2, album2)
     update_all_losing_songs()
 
     if int(votes1) > int(votes2):
@@ -260,6 +272,25 @@ def suggest_next_battle():
     song1, song2 = next_battle
     print(f"\nSuggested battle: '{song1['Title']}' from '{song1['Album']}' vs '{song2['Title']}' from '{song2['Album']}'")
 
+def ranking():
+    qty = 76
+    Headline("Ranking", qty)
+    if len(songs_data) == 0:
+        print("No songs found!")
+        return
+    
+    sorted_songs = sorted(songs_data, key=lambda song: len(song["LosingSongs"]), reverse=True)
+    print(f"{'Nº':<3} | {'Song':<29} | {'Album':<20} | {'V':^3} | {'D':^3} | {'qty':^4}")
+    print("="*qty)
+
+    for i, song in enumerate(sorted_songs):
+        title = song["Title"]
+        album = song["Album"]
+        victories = song["Victories"]
+        defeats = song["Defeats"]
+
+        print(f"{i+1:02d}. | {title:<29} | {album:<20} | {victories:^3} | {defeats:^3} | {len(song['LosingSongs']):^4}")
+    print("="*qty)
 
 # Main program
 read_file()
@@ -272,6 +303,7 @@ def main_menu():
         print("3. Add battle")
         print("4. List battles")
         print("5. Suggest battle")
+        print("6. Ranking")
         print("0. Exit")
         option = input("Choose an option: ")
         
@@ -285,6 +317,8 @@ def main_menu():
             list_battles()
         elif option == "5":
             suggest_next_battle()
+        elif option == "6":
+            ranking()
         elif option == "0":
             update_file()
             print("Program finished!")
