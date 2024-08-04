@@ -112,6 +112,63 @@ def add_song():
 
     print(f"🎉 Song '{title}' from album '{album}' added successfully!")
 
+def song_info():
+    qty = 60
+    Headline("Which Song is Missing?", qty)
+    title = input("Title: ")
+    album = input("Album: ")
+
+    if not find_song(title, album):
+        return
+    
+    title = find_song(title, album)["Title"]
+    album = find_song(title, album)["Album"]
+    
+    song = find_song(title, album)
+    print(f"\nSong '{song['Title']}' from '{song['Album']}'!")
+    print("Actualy this song has:")
+    print(f"🏆 Victories: {song['Victories']}")
+    print(f"🥊 Defeats: {song['Defeats']}")
+    print(f"👎 It's better than {len(song["LosingSongs"])} songs")
+    print()
+
+    print("History of battles:")
+    for battle in battles_data:
+        if battle["Song1"].lower() == song['Title'].lower() and battle["Album1"].lower() == song['Album'].lower():
+            if int(battle["Votes1"]) > int(battle["Votes2"]):
+                print(f"🏆: {battle['Song1']} {battle['Votes1']} vs {battle['Votes2']} {battle['Song2']} ({battle['Date']})")
+            else:
+                print(f"🥊: {battle['Song1']} {battle['Votes1']} vs {battle['Votes2']} {battle['Song2']} ({battle['Date']})")
+                
+        elif battle["Song2"].lower() == song['Title'].lower() and battle["Album2"].lower() == song['Album'].lower():
+            if int(battle["Votes2"]) > int(battle["Votes1"]):
+                print(f"🏆: {battle['Song2']} {battle['Votes2']} vs {battle['Votes1']} {battle['Song1']} ({battle['Date']})")
+            else:
+                print(f"🥊: {battle['Song2']} {battle['Votes2']} vs {battle['Votes1']} {battle['Song1']} ({battle['Date']})")
+
+    print("\nWitch battles is missing?")
+    losing_songs_set = find_losing_songs(title, album)
+    songsMissing = []
+
+    for song in songs_data:
+        if title is not song["Title"] and album is not song["Album"]:
+            if (song["Title"], song["Album"]) not in losing_songs_set:
+                songsMissing.append((song["Title"], song["Album"]))
+
+    for battle in battles_data:
+        if title == battle["Song1"] and album == battle["Album1"]:
+            if (battle["Song2"], battle["Album2"]) in songsMissing:
+                songsMissing.remove((battle["Song2"], battle["Album2"]))
+        elif title == battle["Song2"] and album == battle["Album2"]:
+            if (battle["Song1"], battle["Album1"]) in songsMissing:
+                songsMissing.remove((battle["Song1"], battle["Album1"]))
+
+    if len(songsMissing) == 0:
+        print("No battles missing!")
+    else:
+        print(f"{len(songsMissing)} battles missing:")
+        for i, song in enumerate(songsMissing):
+            print(f"{i+1}. {song[0]} - {song[1]}")
 
 # Battles functions
 def find_song(title, album):
@@ -297,27 +354,33 @@ read_file()
 def main_menu():
     while True:
         print()
-        print(" | Song Battles | ")
-        print("1. List songs")
-        print("2. Add new song")
-        print("3. Add battle")
-        print("4. List battles")
-        print("5. Suggest battle")
-        print("6. Ranking")
-        print("0. Exit")
+        print("+--------------------------+")
+        print("|       Song Battles       |")
+        print("+--------------------------+")
+        print("| 1. Add New Song          |")
+        print("| 2. Add Battle            |")
+        print("| 3. List Songs            |")
+        print("| 4. Info Songs            |")
+        print("| 5. List Battles          |")
+        print("| 6. Suggest Battle        |")
+        print("| 7. Ranking               |")
+        print("| 0. Exit                  |")
+        print("+--------------------------+")
         option = input("Choose an option: ")
         
         if option == "1":
-            list_songs()
-        elif option == "2":
             add_song()
-        elif option == "3":
+        elif option == "2":
             add_battle()
+        elif option == "3":
+            list_songs()
         elif option == "4":
-            list_battles()
+            song_info()
         elif option == "5":
-            suggest_next_battle()
+            list_battles()
         elif option == "6":
+            suggest_next_battle()
+        elif option == "7":
             ranking()
         elif option == "0":
             update_file()
