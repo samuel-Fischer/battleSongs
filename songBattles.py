@@ -1,4 +1,5 @@
 import os
+import random
 from datetime import datetime
 
 songs_data = []
@@ -174,16 +175,16 @@ def add_battle():
     if not find_song(song2, album2):
         return
 
-    print()
-    votes1 = input("Votes for First song: ")
-    print("🥊".center(qty))
-    votes2 = input("Votes for Second song: ")
-    date = datetime.now().strftime("%d/%m/%Y")
-
     song1 = find_song(song1, album1)["Title"]
     song2 = find_song(song2, album2)["Title"]
     album1 = find_song(song1, album1)["Album"]
     album2 = find_song(song2, album2)["Album"]
+
+    print()
+    votes1 = input(f"Votes for {song1}: ")
+    print("🥊".center(qty))
+    votes2 = input(f"Votes for {song2}: ")
+    date = datetime.now().strftime("%d/%m/%Y")
 
     battle_info = {
         "N": len(battles_data) + 1,
@@ -202,10 +203,16 @@ def add_battle():
 
     update_song(song1, album1, int(votes1) > int(votes2))
     update_song(song2, album2, int(votes2) > int(votes1))
-
     update_all_losing_songs()
 
-    print(f"\n🎉 Battle between '{song1}' and '{song2}' added successfully!")
+    if int(votes1) > int(votes2):
+        song1 = f"🏆 '{song1}'"
+        song2 = f"'{song2}'"
+    else:
+        song1 = f"'{song1}'"
+        song2 = f"'{song2}' 🏆"
+
+    print(f"\n🎉 Battle between {song1} and {song2} added successfully!")
 
 def list_battles():
     qty = 137
@@ -239,31 +246,66 @@ def list_battles():
 
     print("="*qty)
 
+
+def suggest_next_battle():
+    eligible_songs = []
+    
+    # Criar uma lista de músicas que não tenham precedentes
+    for song1 in songs_data:
+        for song2 in songs_data:
+            if song1 != song2:
+                song1_title = song1["Title"].lower()
+                song1_album = song1["Album"].lower()
+                song2_title = song2["Title"].lower()
+                song2_album = song2["Album"].lower()
+                
+                # Verificar se song2 está na lista de LosingSongs de song1 ou vice-versa
+                if song2_title not in (losing_song.lower() for losing_song in song1["LosingSongs"]) and song1_title not in (losing_song.lower() for losing_song in song2["LosingSongs"]):
+                    eligible_songs.append((song1, song2))
+    
+    # Se não houver músicas elegíveis, retornar None
+    if not eligible_songs:
+        return None
+    
+    # Selecionar aleatoriamente um par de músicas elegíveis
+    next_battle = random.choice(eligible_songs)
+    return next_battle
+
+
 # Main program
 read_file()
-while True:
-    print()
-    print(" | Song Battles | ")
-    print("1. List songs")
-    print("2. Add new song")
-    print("3. Add battle")
-    print("4. List battles")
-    print("8. Sair")
-    option = input("Opção: ")
-    
-    if option == "1":
-        list_songs()
-    elif option == "2":
-        add_song()
-    elif option == "3":
-        add_battle()
-    elif option == "4":
-        list_battles()
-    elif option == "8":
-        update_file()
-        break
-    else:
-        print("Invalid option!")
+def main_menu():
+    while True:
+        print()
+        print(" | Song Battles | ")
+        print("1. List songs")
+        print("2. Add new song")
+        print("3. Add battle")
+        print("4. List battles")
+        print("5. Suggest battle")
+        print("0. Exit")
+        option = input("Choose an option: ")
+        
+        if option == "1":
+            list_songs()
+        elif option == "2":
+            add_song()
+        elif option == "3":
+            add_battle()
+        elif option == "4":
+            list_battles()
+        elif option == "5":
+            suggested_battle = suggest_next_battle()
+            if suggested_battle:
+                song1, song2 = suggested_battle
+                print(f"Suggested battle: '{song1['Title']}' from '{song1['Album']}' vs '{song2['Title']}' from '{song2['Album']}'")
+            else:
+                print("No eligible songs found for the next battle.")
+        elif option == "0":
+            update_file()
+            print("Program finished!")
+            break
+        else:
+            print("Invalid option!")
 
-print("Program finished!")
-
+main_menu()
