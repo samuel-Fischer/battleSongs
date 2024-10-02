@@ -28,7 +28,7 @@ N;Song1;Song2;Album1;Album2;Votes1;Votes2;Date
 27;Heathens;Christmas Saves The Year;Single;Single;41;8;15/04/2024
 28;Morph;Fake You Out;Trench;Vessel;35;11;16/04/2024
 29;Formidable;Legend;Scaled And Icy;Trench;11;30;17/04/2024
-30;Bouce Man;Tear in My Heart;Scaled And Icy;Blurryface;4;41;18/04/2024
+30;Bounce Man;Tear in My Heart;Scaled And Icy;Blurryface;4;41;18/04/2024
 31;Lane Boy;Car Radio;Blurryface;Vessel;10;32;19/04/2024
 32;Guns For Hands rab;Next Semester;Regional At Best;Clancy;1;41;20/04/2024
 33;Slowtown;Cut My Lip;Regional At Best;Trench;33;69;21/04/2024
@@ -61,7 +61,7 @@ N;Song1;Song2;Album1;Album2;Votes1;Votes2;Date
 60;The Outside;Level of Concern;Scaled And Icy;Single;43;12;18/05/2024
 61;Two;Good Day;Regional At Best;Scaled And Icy;13;38;19/05/2024
 62;Slowtown;Not Today;Regional At Best;Blurryface;31;29;20/05/2024
-63;Bandito;Bouce Man;Trench;Scaled And Icy;48;9;21/05/2024
+63;Bandito;Bounce Man;Trench;Scaled And Icy;48;9;21/05/2024
 64;Goner;Fake You Out;Blurryface;Vessel;28;24;22/05/2024
 65;My Blood;Shy Away;Trench;Scaled And Icy;70;13;23/05/2024
 66;Cancer;Clear;Single;Regional At Best;17;34;24/05/2024
@@ -137,7 +137,7 @@ N;Song1;Song2;Album1;Album2;Votes1;Votes2;Date
 136;Implicit Demand For Proof;Two;Twenty One Pilots;Regional At Best;42;5;03/08/2024
 137;Fake You Out;The Judge;Vessel;Blurryface;20;28;04/08/2024
 138;Lovely;Never Take It;Regional At Best;Scaled And Icy;34;13;05/08/2024
-139;Car Radio rab;Bouce Man;Regional At Best;Scaled And Icy;30;16;06/08/2024
+139;Car Radio rab;Bounce Man;Regional At Best;Scaled And Icy;30;16;06/08/2024
 140;Truce;Saturday;Vessel;Scaled And Icy;41;9;08/08/2024
 141;Leave the City;Jumpsuit;Trench;Trench;37;11;09/08/2024
 142;Next Semester;Pet Cheetah;Clancy;Trench;33;15;10/08/2024
@@ -178,3 +178,19 @@ N;Song1;Song2;Album1;Album2;Votes1;Votes2;Date
 177;Clear;Ode To Sleep rab;Regional At Best;Regional At Best;25;31;16/09/2024
 178;Heavydirtysoul;Ode to Sleep;Blurryface;Vessel;32;25;16/09/2024
 179;Choker;Morph;Scaled And Icy;Trench;11;50;16/09/2024
+180;House of Gold;Fake You Out;Vessel;Vessel;24;36;18/09/2024
+181;Trapdoor;Routines In The Night;Twenty One Pilots;Clancy;44;22;18/09/2024
+182;Ruby;Choker;Regional At Best;Scaled And Icy;39;27;23/09/2024
+183;Jumpsuit;Semi-Automatic;Trench;Vessel;53;22;23/09/2024
+184;The Judge;Lane Boy;Blurryface;Blurryface;28;26;23/09/2024
+185;March To The Sea;Lavish;Twenty One Pilots;Clancy;21;43;23/09/2024
+186;Kitchen Sink;Trees;Regional At Best;Vessel;19;30;23/09/2024
+187;Kitchen Sink;Trees;Regional At Best;Vessel;20;31;02/10/2024
+188;Polarize;Truce;Blurryface;Vessel;34;30;02/10/2024
+189;Cancer;We Don't Believe What's on TV;Single;Blurryface;12;43;02/10/2024
+190;Backslide;Christmas Saves The Year;Clancy;Single;52;6;02/10/2024
+191;Stressed Out;My Blood;Blurryface;Trench;13;49;02/10/2024
+192;Air Catcher;The Pantaloon;Twenty One Pilots;Twenty One Pilots;31;19;02/10/2024
+193;Mulberry Street;Addict With A Pen;Scaled And Icy;Twenty One Pilots;36;25;02/10/2024
+194;Neon Gravestones;Guns For Hands rab;Trench;Regional At Best;43;6;02/10/2024
+195;Bounce Man;Anathema;Scaled And Icy;Regional At Best;24;40;02/10/2024
