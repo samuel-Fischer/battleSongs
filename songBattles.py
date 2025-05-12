@@ -1,5 +1,6 @@
 import os
 import random
+import time
 from datetime import datetime
 
 songs_data = []
@@ -112,6 +113,8 @@ def add_song():
 
     print(f"🎉 Song '{title}' from album '{album}' added successfully!")
 
+# verificar porque não ta contando corretamente as musicas vencedoras e perdedoras (ex addict with a pen)
+# adicionar Ranking atual dela e o melhor resultado que ela pode alcançar
 def song_info():
     qty = 60
     Headline("Which Song is Missing?", qty)
@@ -129,7 +132,8 @@ def song_info():
     print("Actualy this song has:")
     print(f"🏆 Victories: {song['Victories']}")
     print(f"🥊 Defeats: {song['Defeats']}")
-    print(f"👎 It's better than {len(song["LosingSongs"])} songs")
+    # print(f"👎 It's better than {len(song["LosingSongs"])} songs")
+    print()
     print()
 
     print("History of battles:")
@@ -253,6 +257,7 @@ def add_battle():
     votes2 = input(f"Votes for {song2}: ")
     date = datetime.now().strftime("%d/%m/%Y")
 
+    start_time = time.time()
     battle_info = {
         "N": len(battles_data) + 1,
         "Song1": song1,
@@ -277,7 +282,10 @@ def add_battle():
         song2 = f"'{song2}' 🏆"
 
     print(f"\n🎉 Battle between {song1} and {song2} added successfully!")
-
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    print(f"\n⏱️ Tempo de execução: {elapsed_time:.2f} segundos")
+    
 def list_battles():
     qty = 137
     Headline("History of Battles", qty)
