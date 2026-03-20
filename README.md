@@ -36,9 +36,11 @@ Esse modelo de ranqueamento reduz a necessidade de comparações diretas entre t
 
 ### 🚨 Melhorias urgentes
 - [ ] **Otimizar o processo para adicionar novas batalhas.** (pelo grande número de músicas competindo, o programa está demorando mais do que deveria para realizar as comparações) - `(2)`
+- [ ] **Remover batalhas que já pegaram uma posição fixa no pódio, não precisam mais participar da verificação de posição!.** (2)
 
 ### 🛠️ Lógica e funcionalidades
 - [ ] Ao adicionar uma batalha, incluir o número da batalha na mensagem. ex: "✅ XXXº batalha inserida com sucesso!" - `(2)`
+- [ ] Na mensagem de batalha enserida com sucesso, adicionar o numero da batalha adicionada. `(2)`
 - [ ] Permitir abreviações para álbuns e, possivelmente, músicas. - `(2)`
 - [ ] Corrigir falha ao buscar músicas que ainda não batalharam. (de forma indireta) - `(5)`
 - [ ] Incluir número da batalha no histórico de batalhas. - `(4)`
