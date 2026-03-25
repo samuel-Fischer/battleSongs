@@ -35,18 +35,22 @@ Esse modelo de ranqueamento reduz a necessidade de comparações diretas entre t
 ## ✅ TODO
 
 ### 🚨 Melhorias urgentes
-- [ ] **Otimizar o processo para adicionar novas batalhas.** (pelo grande número de músicas competindo, o programa está demorando mais do que deveria para realizar as comparações) - `(2)`
-- [ ] **Remover batalhas que já pegaram uma posição fixa no pódio, não precisam mais participar da verificação de posição!.** (2)
+- [X] **Otimizar o processo para adicionar novas batalhas.** (pelo grande número de músicas competindo, o programa está demorando mais do que deveria para realizar as comparações) - `(2)`
+- [X] **Remover batalhas que já pegaram uma posição fixa no pódio, não precisam mais participar da verificação de posição!.** (2)
 
 ### 🛠️ Lógica e funcionalidades
-- [ ] Ao adicionar uma batalha, incluir o número da batalha na mensagem. ex: "✅ XXXº batalha inserida com sucesso!" - `(2)`
-- [ ] Na mensagem de batalha enserida com sucesso, adicionar o numero da batalha adicionada. `(2)`
-- [ ] Permitir abreviações para álbuns e, possivelmente, músicas. - `(2)`
-- [ ] Corrigir falha ao buscar músicas que ainda não batalharam. (de forma indireta) - `(5)`
+- [X] Ao solicitar a inserção de uma nova batalha, citar na mensagem a ultima batalha adicionada. - `(2)`
+- [X] Ao adicionar uma batalha, incluir o número da batalha inserida na mensagem de sucesso junto com a música vencedora. ex: "✅ XXXº batalha adicionada: 🏆 'Chlorine' venceu 'Stressed Out'." - `(2)`
+- ~~[ ] Permitir abreviações para músicas. - `(2)`~~
+- [X] Na hora de adicionar batalha identificar com emogis quando for a musica vencedora ou a perdedora. -`(2)`
+- [X] Corrigir falha ao buscar músicas que ainda não batalharam. (de forma indireta) - `(3)`
 - [ ] Incluir número da batalha no histórico de batalhas. - `(4)`
-- [ ] Corrigir visualização de derrotas da música. (ex do que acontece com 'Heavydirtysoul') - `(4)`
-- [ ] Verificar contagem incorreta de vitórias/derrotas. (ex: 'Addict With a Pen') `(4)`
+- [X] Corrigir visualização de derrotas da música. - `(4)`
+- [ ] Adcionar numero de vitórias e derrotas direta e indiretamente. - `(4)`
 - [ ] Adicionar ranking atual da música e o melhor resultado possível. `(4)`
+- [ ] Adicionar opção para remover batalhas. `(new functionality)`
+- [ ] Adicionar opção para remover músicas. `(new functionality)`
+- [X] Adicionar opção "0" para retornar ao menu principal em qualquer etapa do processo.
 
 <small>*- Os números entre parênteses __()__ referem-se à função que ela exerce no __menu__.*</small>
 
